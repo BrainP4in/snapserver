@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-RUN apt-get update && apt-get install wget -y
+RUN apt-get update && apt-get install wget shairport-sync -y
 
 ARG SNAPCASTVERSION=0.25.0
 ARG SNAPCAST_FILE="0.25.0-1"
@@ -15,4 +15,4 @@ RUN mkdir -p /root/.config/snapcast/
 EXPOSE 1704
 EXPOSE 1780
 
-ENTRYPOINT ["snapserver"]
+ENTRYPOINT ["/bin/sh", "-c" , "/etc/init.d/dbus start && /etc/init.d/avahi-daemon start && snapserver"]
